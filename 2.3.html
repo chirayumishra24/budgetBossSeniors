@@ -1,0 +1,1036 @@
+<div>
+    <div>
+        <div>
+            <div>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </div>
+        </div>
+    </div>
+</div>
+<title></title>
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap"
+    rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<style type="text/css">
+    :root {
+        --primary: #E0C36C;
+        --secondary: #3A6351;
+        --accent: #F7E9A0;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: var(--secondary);
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* Wave Background */
+    .bg-wave {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .wave {
+        position: absolute;
+        bottom: 0;
+        width: 200%;
+        height: 100px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        animation: wave 10s linear infinite;
+    }
+
+    .wave:nth-child(2) {
+        bottom: -20px;
+        opacity: 0.6;
+        animation: wave 15s linear infinite reverse;
+    }
+
+    .wave:nth-child(3) {
+        bottom: -40px;
+        opacity: 0.3;
+        animation: wave 12s linear infinite;
+    }
+
+    @keyframes wave {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* Coin Animations */
+    .coin-animation-container {
+        position: absolute;
+        width: 150px;
+        height: 225px;
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    .y-axis-container {
+        animation: bounce 2.6s infinite ease-in-out;
+    }
+
+    .coin-container {
+        position: relative;
+        top: 22.5px;
+        height: 225px;
+        width: 142.5px;
+        transform: scale(0.5) translateX(0) scaleY(0.7);
+    }
+
+    .coin {
+        position: absolute;
+        height: 225px;
+        left: 0;
+        width: 127.5px;
+        background: gold;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .side-coin {
+        position: absolute;
+        left: 63.75px;
+        height: 225px;
+        width: 26.25px;
+        background: #f5b642;
+    }
+
+    .side {
+        position: absolute;
+        background: #f5b642;
+        left: 16.5px;
+        width: 123.75px;
+        height: 228px;
+        top: -1.5px;
+    }
+
+    .shine {
+        width: 300px;
+        height: 15px;
+        background: rgba(255, 255, 255, 0.65);
+        transform: rotate(25deg);
+        animation: shine 5s infinite;
+    }
+
+    .flash {
+        z-index: 200;
+        position: absolute;
+        width: 11.25px;
+        height: 11.25px;
+        background: white;
+        top: 22.5px;
+        right: 15px;
+        animation: flash 7s infinite;
+    }
+
+    .dai {
+        position: absolute;
+        width: 75px;
+        height: 75px;
+        background: #faf20a;
+        border: 1px solid white;
+        transform: rotate(53deg) skew(26deg);
+        top: 70.5px;
+        left: 26.25px;
+        overflow: hidden;
+    }
+
+    .cutout,
+    .dai-shadow {
+        z-index: 20;
+        width: 150%;
+        height: 150%;
+        transform: rotate(45deg);
+        position: absolute;
+        top: 21.75px;
+    }
+
+    .cutout {
+        background: #ffee38;
+        left: 21.75px;
+    }
+
+    .dai-shadow {
+        background: rgba(0, 0, 0, 0.07);
+        right: 21.75px;
+    }
+
+    .inner-dai {
+        position: relative;
+        background: white;
+        height: 52.5px;
+        width: 52.5px;
+        top: 11.25px;
+        left: 11.25px;
+    }
+
+    .inner-inner-dai {
+        position: relative;
+        background: #ffee38;
+        width: 15px;
+        height: 15px;
+        top: 18.75px;
+        left: 18.75px;
+    }
+
+    .coin-shadow {
+        position: relative;
+        left: calc(50% - 45px);
+        top: -30px;
+        background: rgba(0, 0, 0, 0.2);
+        height: 22.5px;
+        width: 75px;
+        border-radius: 50%;
+        animation: scaling 2.6s infinite;
+    }
+
+    @keyframes bounce {
+        20% {
+            transform: translateY(-45px);
+        }
+
+        50% {
+            transform: translateY(-60px);
+        }
+    }
+
+    @keyframes scaling {
+        20% {
+            transform: scale(0.6);
+        }
+
+        50% {
+            transform: scale(0.5);
+        }
+    }
+
+    @keyframes flash {
+
+        0%,
+        8% {
+            transform: rotate(0deg) scale(0);
+        }
+
+        10% {
+            transform: rotate(150deg) scale(1.8);
+        }
+
+        15%,
+        100% {
+            transform: rotate(45deg) scale(0);
+        }
+    }
+
+    @keyframes shine {
+        20% {
+            transform: rotate(25deg) translateY(300px);
+        }
+
+        100% {
+            transform: rotate(25deg) translateY(300px);
+        }
+    }
+
+    /* Progress Bar */
+    .progress-container {
+        position: fixed;
+        top: 33.33vh;
+        right: 10px;
+        width: 8px;
+        height: 33.33vh;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 20;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 0;
+        background: var(--primary);
+        transition: height 0.3s ease;
+    }
+
+    /* Header */
+    .header-bg {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        color: var(--secondary);
+        text-align: center;
+        width: 95%;
+        max-width: 1800px;
+        margin: 2rem auto 1.5rem;
+    }
+
+    /* Fade-in */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Investment Cards */
+    .investment-card {
+        background: var(--accent);
+        border: 2px solid var(--primary);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .investment-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* === FIXED IMAGE CONTAINER - Full image visible on all screens === */
+    .image-container {
+        width: 100%;
+        border: 3px solid var(--primary);
+        border-radius: 12px;
+        overflow: hidden;
+        background: white;
+        padding: 12px;
+        margin: 1rem auto;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+        /* Full height, no fixed height */
+        display: block;
+        object-fit: contain;
+        /* Shows complete image without cropping */
+        max-height: 340px;
+        /* Prevents images from becoming too tall */
+    }
+
+    /* 50/50 split for investment cards */
+    .investment-card .flex {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .investment-card .flex {
+            flex-direction: row;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .investment-card .flex>div {
+            flex: 1;
+        }
+    }
+
+    /* UPDATED YouTube Video - Forced Centering and Strict Scaling */
+    .youtube-video {
+        position: relative;
+        width: 100%;
+        /* Ensure it takes full available width */
+        max-width: 800px;
+        /* Prevents it from getting too huge on tablets */
+        aspect-ratio: 16 / 9;
+        /* Modern CSS way to handle aspect ratio */
+        margin: 1.5rem auto;
+        /* Centers horizontally */
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background: #000;
+        /* Prevents flickering during load */
+    }
+
+    /* Fallback for older browsers that don't support aspect-ratio */
+    @supports not (aspect-ratio: 16 / 9) {
+        .youtube-video {
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+    }
+
+    .youtube-video iframe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* Forces absolute mathematical center */
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Table */
+    .investment-table {
+        background: white;
+        border-radius: 12px;
+        overflow-x: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+    }
+
+    .investment-table table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
+
+    .investment-table th,
+    .investment-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .investment-table th {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: var(--secondary);
+        font-weight: 600;
+    }
+
+    /* Activity Card */
+    .activity-card {
+        background: var(--accent);
+        border: 2px solid var(--primary);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Audio Container with GIF */
+    .audio-container {
+        position: relative;
+        background: url('https://login.skillizee.io/s/articles/6909826eb2daa47d422b50af/images/Subtitle%20(4).gif') center center no-repeat;
+        background-size: contain;
+        border-radius: 16px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        margin: 1.5rem auto;
+        width: 95%;
+        max-width: 900px;
+        aspect-ratio: 1920 / 1080;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1rem;
+    }
+
+    .audio-container audio {
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid #2D2B7E;
+        background: #F5F5FF;
+        height: 50px;
+        padding: 4px;
+        box-shadow: 0 3px 10px rgba(45, 43, 126, 0.3);
+    }
+
+    /* Footer */
+    .new-footer {
+        background: var(--secondary);
+        color: var(--accent);
+        text-align: center;
+        padding: 2rem;
+        margin-top: 2rem;
+        border-radius: 20px 20px 0 0;
+        width: 95%;
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+
+    /* Gustora Fullscreen Button */
+    #gustoraFullscreenBtn {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 99999;
+        width: 68px;
+        height: 68px;
+        background: linear-gradient(135deg, var(--primary), #c9a100);
+        border: 4px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(170, 138, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(12px);
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        animation: gentlePulse 4s infinite ease-in-out;
+    }
+
+    #gustoraFullscreenBtn:hover {
+        transform: scale(1.18) rotate(8deg);
+        box-shadow: 0 20px 50px rgba(170, 138, 0, 0.7), 0 0 50px rgba(255, 215, 0, 0.6), 0 0 60px rgba(225, 37, 27, 0.3);
+        border-color: #e53e3e;
+    }
+
+    #gustoraFullscreenBtn svg {
+        width: 38px;
+        height: 38px;
+        stroke: #000;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    @keyframes gentlePulse {
+
+        0%,
+        100% {
+            box-shadow: 0 10px 30px rgba(170, 138, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        50% {
+            box-shadow: 0 15px 40px rgba(170, 138, 0, 0.6), 0 0 40px rgba(225, 37, 27, 0.3), inset 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    /* Notes Panel */
+    #notesBtn,
+    #notesPanel {
+        position: fixed !important;
+        isolation: isolate;
+    }
+
+    #notesBtn {
+        bottom: 24px;
+        left: 24px;
+        z-index: 2147483647;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: none;
+        background: #fff;
+        font-size: 22px;
+        cursor: pointer;
+        box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+    }
+
+    #notesPanel {
+        bottom: 96px;
+        left: 24px;
+        width: 320px;
+        max-width: 90vw;
+        background: rgba(15, 23, 42, 0.96);
+        color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        z-index: 2147483646;
+        display: none;
+        flex-direction: column;
+        backdrop-filter: blur(14px);
+    }
+
+    .notes-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    #notesArea {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 14px;
+        height: 150px;
+        resize: none;
+        outline: none;
+    }
+
+    .notes-actions {
+        display: flex;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .notes-actions button {
+        flex: 1;
+        border: none;
+        border-radius: 8px;
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .header-bg {
+            width: 95% !important;
+            padding: 1rem !important;
+        }
+
+        .header-bg h1 {
+            font-size: 22px !important;
+        }
+
+        .investment-card {
+            padding: 1.2rem;
+        }
+
+        .image-container {
+            height: 200px !important;
+        }
+
+        .youtube-video {
+            margin: 1rem auto;
+        }
+
+        .progress-container,
+        .coin-animation-container {
+            display: none !important;
+        }
+
+        .bg-wave {
+            opacity: 0.2;
+        }
+
+        .wave {
+            height: 60px;
+        }
+
+        #gustoraFullscreenBtn {
+            width: 50px;
+            height: 50px;
+            top: 12px;
+            right: 12px;
+        }
+
+        #gustoraFullscreenBtn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        #notesBtn {
+            width: 48px;
+            height: 48px;
+            bottom: 16px;
+            left: 16px;
+        }
+
+        #notesPanel {
+            width: 90%;
+            left: 16px;
+            bottom: 80px;
+        }
+
+        .audio-container {
+            aspect-ratio: 16/9;
+            padding: 0.5rem;
+        }
+
+        .audio-container audio {
+            height: 40px;
+        }
+    }
+
+    
+    /* Heading Responsiveness */
+    @media (min-width: 1024px) {
+        .header-bg h2, .header-bg h1 {
+            font-size: 3.8rem !important;
+            line-height: 1.2 !important;
+            letter-spacing: -0.02em !important;
+            font-weight: 800 !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: 2.8rem !important;
+            line-height: 1.3 !important;
+            margin-bottom: 1.5rem !important;
+            font-weight: 700 !important;
+        }
+        .text-lg {
+            font-size: 1.25rem !important;
+            line-height: 1.6 !important;
+        }
+    }
+    @media (min-width: 769px) and (max-width: 1023px) {
+        .header-bg h2, .header-bg h1 {
+            font-size: 3rem !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: 2.4rem !important;
+        }
+    }
+    </style>
+<!-- Wave Background -->
+<div class="bg-wave">
+    <div class="wave">&nbsp;</div>
+
+    <div class="wave">&nbsp;</div>
+
+    <div class="wave">&nbsp;</div>
+</div>
+<!-- Coins Container -->
+
+<div class="fixed inset-0 pointer-events-none z-0" id="coins-container"><!-- Paste your coin blocks here --></div>
+<!-- Progress Bar -->
+
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar" style="height: 4.97758%;">&nbsp;</div>
+</div>
+<!-- Gustora Fullscreen Button -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="2.6" viewbox="0 0 24 24">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+    </svg></div>
+<!-- Header -->
+
+<header class="header-bg fade-in visible">
+    <h1><strong>Chapter 2.3: Basics of Investment</strong></h1>
+</header>
+<!-- Notes -->
+
+<p><button id="notesBtn">📝</button></p>
+
+<div id="notesPanel">
+    <div class="notes-header"><span>My Notes</span><button id="closeNotes">✕</button></div>
+    <textarea id="notesArea" placeholder="Write notes here..."></textarea>
+
+    <div class="notes-actions"><button id="downloadNotes">Download</button><button id="clearNotes">Clear</button></div>
+</div>
+<!-- Audio Container with GIF -->
+
+<div class="audio-container">
+    <audio controls="" controlslist="nodownload" oncontextmenu="return false;">
+        <source src="https://pa2-cmd.github.io/audio-chapters-budget-boss/m2c3s.mp3" type="audio/mp3" />
+    </audio>
+</div>
+
+<main class="max-w-6xl mx-auto px-4 space-y-8 relative z-10"><!-- Section 1: Introduction to Investment -->
+    <section class="bg-white p-6 rounded-2xl shadow-lg fade-in">
+        <h3 class="text-3xl font-semibold mb-6">What is Investment?</h3>
+
+        <div class="flex flex-col lg:flex-row gap-8 items-start">
+            <div class="flex-1">
+                <p class="text-lg">Investment involves using your saved money to buy assets like stocks, bonds, or
+                    mutual funds, aiming to grow your wealth over time. Unlike savings, investments carry risks but
+                    offer the potential for higher returns. Understanding investment basics helps you make informed
+                    choices.</p>
+            </div>
+
+            <div class="flex-1 lg:w-1/2">
+                <div class="image-container"><img alt="Investment Introduction" class="w-full h-auto"
+                        src="/s/articles/68ff4d17e8c9225d87f122c7/images/Gemini_Generated_Image_ajosoiajosoiajos.png" />
+                </div>
+            </div>
+        </div>
+
+        <div class="youtube-video"><iframe
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen="" src="https://www.youtube.com/embed/GKOlLeunz5Y?rel=0"></iframe></div>
+
+        <div class="investment-characteristic mt-6"><strong>Key Insight:</strong> Investments involve risk but can lead
+            to greater wealth if chosen wisely.</div>
+    </section>
+    <!-- Section 2: Types of Investments -->
+
+    <section class="bg-white p-6 rounded-2xl shadow-lg fade-in">
+        <h3 class="text-3xl font-semibold mb-6">Types of Investments</h3>
+
+        <div class="investment-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type of Investment</th>
+                        <th>Description</th>
+                        <th>Examples</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Stocks (Equity)</strong></td>
+                        <td>Buying ownership shares in a company; potential for dividends and capital gains. High risk,
+                            high return.</td>
+                        <td>Individual company stocks (e.g., Reliance, TCS)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bonds (Fixed Income)</strong></td>
+                        <td>Lending money to governments or corporations, earning fixed interest. Lower risk than
+                            stocks.</td>
+                        <td>Government bonds, corporate bonds</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mutual Funds</strong></td>
+                        <td>Pooled investments managed by professionals, investing in stocks, bonds, or a mix.
+                            Diversifies risk.</td>
+                        <td>Equity funds, debt funds, hybrid funds</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Real Estate</strong></td>
+                        <td>Investing in property for rental income or capital appreciation. Illiquid and long-term.
+                        </td>
+                        <td>Residential or commercial properties</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cash and Cash Equivalents</strong></td>
+                        <td>Safe, liquid investments with low returns, used for short-term needs.</td>
+                        <td>Savings accounts, fixed deposits</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alternative Investments</strong></td>
+                        <td>Non-traditional assets like private equity, hedge funds, or cryptocurrencies.</td>
+                        <td>Gold, cryptocurrency</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- Section 3: Top Investments in India (2025) -->
+
+    <section class="bg-white p-6 rounded-2xl shadow-lg fade-in">
+        <h3 class="text-3xl font-semibold mb-6">Top Investments in India (2025)</h3>
+        <!-- Top 5 Stocks -->
+
+        <div class="investment-card">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="flex-1">
+                    <h4 class="text-2xl font-semibold mb-3">Top 5 Stocks in India</h4>
+
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>Reliance Industries:</strong> A massive conglomerate in retail, telecom, and energy.
+                        </li>
+                        <li><strong>Tata Consultancy Services (TCS):</strong> Global IT services leader with consistent
+                            performance.</li>
+                        <li><strong>HDFC Bank:</strong> Premier private sector bank with strong earnings.</li>
+                        <li><strong>Infosys:</strong> Major IT company excelling in digital transformation.</li>
+                        <li><strong>Hindustan Unilever (HUL):</strong> Dominates FMCG with strong rural presence.</li>
+                    </ul>
+                </div>
+
+                <div class="flex-1">
+                    <div class="image-container"><img alt="Top 5 Stocks Chart"
+                            src="/s/articles/68ff4d17e8c9225d87f122c7/images/Your paragraph text (4).png" /></div>
+                </div>
+            </div>
+        </div>
+        <!-- Top 5 Mutual Funds -->
+
+        <div class="investment-card mt-6">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="flex-1">
+                    <h4 class="text-2xl font-semibold mb-3">Top 5 Mutual Funds in India</h4>
+
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li><strong>HDFC Focused 30 Fund:</strong> Large-cap fund with exposure to 30 leading companies.
+                        </li>
+                        <li><strong>Motilal Oswal Midcap Fund:</strong> Focused on midcap companies with growth
+                            potential.</li>
+                        <li><strong>Nippon India Small Cap Fund:</strong> Targets high-growth small-cap companies.</li>
+                        <li><strong>ICICI Prudential Infrastructure Fund:</strong> Sectoral fund for infrastructure
+                            projects.</li>
+                        <li><strong>Canara Robeco Bluechip Equity Fund:</strong> Invests in stable large-cap companies.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="flex-1">
+                    <div class="image-container"><img alt="Top 5 Mutual Funds Chart"
+                            src="/s/articles/68ff4d17e8c9225d87f122c7/images/Your paragraph text (3).png" /></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section 4: High School Investment -->
+
+    <section class="bg-white p-6 rounded-2xl shadow-lg fade-in">
+        <h3 class="text-3xl font-semibold mb-6">The Right Type of Investment for a High School Student</h3>
+
+        <p class="text-lg mb-8">When you&rsquo;re in high school, you may not have a regular income yet, but you can
+            start learning how to make your money grow wisely. The goal at this stage is to build financial habits and
+            understand how investments work, not to take big risks.</p>
+        <!-- 1. Savings Account -->
+
+        <div class="investment-card">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="flex-1">
+                    <h4 class="text-xl font-semibold mb-2">1. Savings Account with Interest</h4>
+
+                    <p>The simplest and safest starting point.</p>
+
+                    <ul class="list-disc pl-6 mt-3 space-y-1">
+                        <li>You can open a student savings account (often with zero balance or low fees).</li>
+                        <li>The bank pays interest &mdash; meaning your money grows a little every month.</li>
+                    </ul>
+
+                    <div class="investment-characteristic mt-4"><strong>Good for:</strong> Learning the habit of saving
+                        regularly and tracking growth.</div>
+                </div>
+
+                <div class="flex-1">
+                    <div class="image-container"><img alt="Savings Account with Interest"
+                            src="/s/articles/68ff4d17e8c9225d87f122c7/images/Gemini_Generated_Image_flk5nlflk5nlflk5.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 2. Recurring Deposit -->
+
+        <div class="investment-card">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="flex-1">
+                    <h4 class="text-xl font-semibold mb-2">2. Recurring Deposit (RD)</h4>
+
+                    <p>You deposit a fixed amount every month (e.g., ₹500 or ₹1,000).</p>
+
+                    <ul class="list-disc pl-6 mt-3 space-y-1">
+                        <li>The bank gives a slightly higher interest rate than a regular savings account.</li>
+                        <li>At the end of the period (say 1 year), you get your money plus the interest earned.</li>
+                    </ul>
+
+                    <div class="investment-characteristic mt-4"><strong>Good for:</strong> Building discipline and
+                        understanding how time increases value.</div>
+                </div>
+
+                <div class="flex-1">
+                    <div class="image-container"><img alt="Recurring Deposit"
+                            src="/s/articles/68ff4d17e8c9225d87f122c7/images/Gemini_Generated_Image_eljnzqeljnzqeljn.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 3. Investing in Knowledge -->
+
+        <div class="investment-card">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="flex-1">
+                    <h4 class="text-xl font-semibold mb-2">3. Investing in Knowledge or Skills</h4>
+
+                    <p>The best investment for any student!</p>
+
+                    <ul class="list-disc pl-6 mt-3 space-y-1">
+                        <li>Spend on books, online courses, workshops, or tools that develop your skills (coding, music,
+                            design, art, etc.).</li>
+                        <li>These skills can help you earn money or get better opportunities later.</li>
+                    </ul>
+
+                    <div class="investment-characteristic mt-4"><strong>Good for:</strong> Long-term personal growth and
+                        future income.</div>
+                </div>
+
+                <div class="flex-1">
+                    <div class="image-container"><img alt="Investing in Knowledge and Skills"
+                            src="/s/articles/68ff4d17e8c9225d87f122c7/images/Gemini_Generated_Image_cnyh36cnyh36cnyh.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 4. Mutual Funds -->
+
+        <div class="investment-card">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <div class="flex-1">
+                    <h4 class="text-xl font-semibold mb-2">4. Mutual Funds (with Guidance)</h4>
+
+                    <p>If you are open, you can learn about Systematic Investment Plans (SIPs) &mdash; investing small
+                        amounts regularly in mutual funds.</p>
+
+                    <ul class="list-disc pl-6 mt-3 space-y-1">
+                        <li>This helps you understand how the stock market works &mdash; without needing a lot of money.
+                        </li>
+                    </ul>
+
+                    <div class="investment-characteristic mt-4"><strong>Good for:</strong> Learning the basics of
+                        financial growth and compounding.</div>
+                </div>
+
+                <div class="flex-1">
+                    <div class="image-container"><img alt="Mutual Funds and SIP"
+                            src="/s/articles/68ff4d17e8c9225d87f122c7/images/Gemini_Generated_Image_bn11t1bn11t1bn11.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Footer -->
+
+<footer class="new-footer">
+    <h4>Budget Boss</h4>
+
+    <p>SkilliZee.io</p>
+</footer>
+<script>
+    // Gustora Fullscreen Button
+    document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen?.() ||
+                document.documentElement.webkitRequestFullscreen?.() ||
+                document.documentElement.msRequestFullscreen?.();
+        } else {
+            document.exitFullscreen?.() ||
+                document.webkitExitFullscreen?.() ||
+                document.msExitFullscreen?.();
+        }
+    });
+
+    // Notes Panel
+    document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("notesBtn");
+        const panel = document.getElementById("notesPanel");
+        const close = document.getElementById("closeNotes");
+        const area = document.getElementById("notesArea");
+        const clearBtn = document.getElementById("clearNotes");
+        const downloadBtn = document.getElementById("downloadNotes");
+
+        area.value = localStorage.getItem("user_notes_cache") || "";
+
+        btn.onclick = () => panel.style.display = (panel.style.display === "flex") ? "none" : "flex";
+        if (close) close.onclick = () => panel.style.display = "none";
+
+        area.addEventListener("input", () => localStorage.setItem("user_notes_cache", area.value));
+
+        clearBtn.onclick = () => {
+            if (confirm("Clear all notes?")) {
+                area.value = "";
+                localStorage.removeItem("user_notes_cache");
+            }
+        };
+        downloadBtn.onclick = () => {
+            const blob = new Blob([area.value], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = "my-notes.txt"; a.click();
+            URL.revokeObjectURL(url);
+        };
+    });
+
+    // Progress Bar
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        document.getElementById("progress-bar").style.height = `${scrollPercent}%`;
+    });
+
+    // Fade-in Observer
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>

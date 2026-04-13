@@ -1,0 +1,939 @@
+<div>
+    <div>
+        <div>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </div>
+    </div>
+</div>
+<title></title>
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap"
+    rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<style type="text/css">
+    :root {
+        --primary: #E0C36C;
+        --secondary: #3A6351;
+        --accent: #F7E9A0;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: var(--secondary);
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* Wave Background */
+    .bg-wave {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .wave {
+        position: absolute;
+        bottom: 0;
+        width: 200%;
+        height: 100px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        animation: wave 10s linear infinite;
+    }
+
+    .wave:nth-child(2) {
+        bottom: -20px;
+        opacity: 0.6;
+        animation: wave 15s linear infinite reverse;
+    }
+
+    .wave:nth-child(3) {
+        bottom: -40px;
+        opacity: 0.3;
+        animation: wave 12s linear infinite;
+    }
+
+    @keyframes wave {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* Coin Animations */
+    .coin-animation-container {
+        position: absolute;
+        width: 150px;
+        height: 225px;
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    .y-axis-container {
+        animation: bounce 2.6s infinite ease-in-out;
+    }
+
+    .coin-container {
+        position: relative;
+        top: 22.5px;
+        height: 225px;
+        width: 142.5px;
+        transform: scale(0.5) translateX(0) scaleY(0.7);
+    }
+
+    .coin {
+        position: absolute;
+        height: 225px;
+        left: 0;
+        width: 127.5px;
+        background: gold;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .side-coin {
+        position: absolute;
+        left: 63.75px;
+        height: 225px;
+        width: 26.25px;
+        background: #f5b642;
+    }
+
+    .side {
+        position: absolute;
+        background: #f5b642;
+        left: 16.5px;
+        width: 123.75px;
+        height: 228px;
+        top: -1.5px;
+    }
+
+    .shine {
+        width: 300px;
+        height: 15px;
+        background: rgba(255, 255, 255, 0.65);
+        transform: rotate(25deg);
+        animation: shine 5s infinite;
+    }
+
+    .flash {
+        z-index: 200;
+        position: absolute;
+        width: 11.25px;
+        height: 11.25px;
+        background: white;
+        top: 22.5px;
+        right: 15px;
+        animation: flash 7s infinite;
+    }
+
+    .dai {
+        position: absolute;
+        width: 75px;
+        height: 75px;
+        background: #faf20a;
+        border: 1px solid white;
+        transform: rotate(53deg) skew(26deg);
+        top: 70.5px;
+        left: 26.25px;
+        overflow: hidden;
+    }
+
+    .cutout,
+    .dai-shadow {
+        z-index: 20;
+        width: 150%;
+        height: 150%;
+        transform: rotate(45deg);
+        position: absolute;
+        top: 21.75px;
+    }
+
+    .cutout {
+        background: #ffee38;
+        left: 21.75px;
+    }
+
+    .dai-shadow {
+        background: rgba(0, 0, 0, 0.07);
+        right: 21.75px;
+    }
+
+    .inner-dai {
+        position: relative;
+        background: white;
+        height: 52.5px;
+        width: 52.5px;
+        top: 11.25px;
+        left: 11.25px;
+    }
+
+    .inner-inner-dai {
+        position: relative;
+        background: #ffee38;
+        width: 15px;
+        height: 15px;
+        top: 18.75px;
+        left: 18.75px;
+    }
+
+    .coin-shadow {
+        position: relative;
+        left: calc(50% - 45px);
+        top: -30px;
+        background: rgba(0, 0, 0, 0.2);
+        height: 22.5px;
+        width: 75px;
+        border-radius: 50%;
+        animation: scaling 2.6s infinite;
+    }
+
+    @keyframes bounce {
+        20% {
+            transform: translateY(-45px);
+        }
+
+        50% {
+            transform: translateY(-60px);
+        }
+    }
+
+    @keyframes scaling {
+        20% {
+            transform: scale(0.6);
+        }
+
+        50% {
+            transform: scale(0.5);
+        }
+    }
+
+    @keyframes flash {
+
+        0%,
+        8% {
+            transform: rotate(0deg) scale(0);
+        }
+
+        10% {
+            transform: rotate(150deg) scale(1.8);
+        }
+
+        15%,
+        100% {
+            transform: rotate(45deg) scale(0);
+        }
+    }
+
+    @keyframes shine {
+        20% {
+            transform: rotate(25deg) translateY(300px);
+        }
+
+        100% {
+            transform: rotate(25deg) translateY(300px);
+        }
+    }
+
+    /* Progress Bar */
+    .progress-container {
+        position: fixed;
+        top: 33.33vh;
+        right: 10px;
+        width: 8px;
+        height: 33.33vh;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 20;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 0;
+        background: var(--primary);
+        transition: height 0.3s ease;
+    }
+
+    /* Header */
+    .header-bg {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        color: var(--secondary);
+        text-align: center;
+        width: 95%;
+        max-width: 1800px;
+        margin: 2rem auto 1.5rem;
+    }
+
+    /* Fade-in */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* === MONEY TYPE CARD - 50/50 Split (Image + Content) === */
+    .money-type-card {
+        background: var(--accent);
+        border: 2px solid var(--primary);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .money-type-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .money-type-card .flex {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* 50-50 Split on larger screens */
+    @media (min-width: 768px) {
+        .money-type-card .flex {
+            flex-direction: row;
+            gap: 2rem;
+        }
+
+        .money-type-card .content-side {
+            flex: 1;
+        }
+
+        .money-type-card .image-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    /* Image Container - Full image visible */
+    .image-container {
+        width: 100%;
+        border: 3px solid var(--primary);
+        border-radius: 12px;
+        overflow: hidden;
+        background: white;
+        padding: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+        /* Ensures full image is visible */
+        max-height: 280px;
+        /* Prevents extremely tall images on large screens */
+        margin: 0 auto;
+    }
+
+    /* Summary Table */
+    .summary-table {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+    }
+
+    .summary-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .summary-table th,
+    .summary-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .summary-table th {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: var(--secondary);
+        font-weight: 600;
+    }
+
+    /* Activity Card */
+    .activity-card {
+        background: var(--accent);
+        border: 2px solid var(--primary);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .activity-card button {
+        background: var(--primary);
+        color: var(--secondary);
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 1rem;
+    }
+
+    /* Footer */
+    .new-footer {
+        background: var(--secondary);
+        color: var(--accent);
+        text-align: center;
+        padding: 2rem;
+        margin-top: 2rem;
+        border-radius: 20px 20px 0 0;
+        width: 95%;
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+
+    /* Gustora Fullscreen Button - EXACT SAME AS OVERVIEW */
+    #gustoraFullscreenBtn {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 99999;
+        width: 68px;
+        height: 68px;
+        background: linear-gradient(135deg, var(--primary), #c9a100);
+        border: 4px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(170, 138, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(12px);
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        animation: gentlePulse 4s infinite ease-in-out;
+    }
+
+    #gustoraFullscreenBtn:hover {
+        transform: scale(1.18) rotate(8deg);
+        box-shadow: 0 20px 50px rgba(170, 138, 0, 0.7), 0 0 50px rgba(255, 215, 0, 0.6), 0 0 60px rgba(225, 37, 27, 0.3);
+        border-color: #e53e3e;
+    }
+
+    #gustoraFullscreenBtn svg {
+        width: 38px;
+        height: 38px;
+        stroke: #000;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    @keyframes gentlePulse {
+
+        0%,
+        100% {
+            box-shadow: 0 10px 30px rgba(170, 138, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        50% {
+            box-shadow: 0 15px 40px rgba(170, 138, 0, 0.6), 0 0 40px rgba(225, 37, 27, 0.3), inset 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    /* Notes Panel */
+    #notesBtn,
+    #notesPanel {
+        position: fixed !important;
+        isolation: isolate;
+    }
+
+    #notesBtn {
+        bottom: 24px;
+        left: 24px;
+        z-index: 2147483647;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: none;
+        background: #fff;
+        font-size: 22px;
+        cursor: pointer;
+        box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+    }
+
+    #notesPanel {
+        bottom: 96px;
+        left: 24px;
+        width: 320px;
+        max-width: 90vw;
+        background: rgba(15, 23, 42, 0.96);
+        color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        z-index: 2147483646;
+        display: none;
+        flex-direction: column;
+        backdrop-filter: blur(14px);
+    }
+
+    .notes-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    #notesArea {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 14px;
+        height: 150px;
+        resize: none;
+        outline: none;
+    }
+
+    .notes-actions {
+        display: flex;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .notes-actions button {
+        flex: 1;
+        border: none;
+        border-radius: 8px;
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    /* Mobile Responsiveness - Exact as Overview */
+    @media (max-width: 768px) {
+        .header-bg {
+            width: 95% !important;
+            padding: 1rem !important;
+        }
+
+        .header-bg h2 {
+            font-size: 22px !important;
+        }
+
+        .money-type-card .flex {
+            flex-direction: column !important;
+        }
+
+        .image-container {
+            height: 280px !important;
+        }
+
+        .progress-container,
+        .coin-animation-container {
+            display: none !important;
+        }
+
+        .bg-wave {
+            opacity: 0.2;
+        }
+
+        .wave {
+            height: 60px;
+        }
+
+        #gustoraFullscreenBtn {
+            width: 50px;
+            height: 50px;
+            top: 12px;
+            right: 12px;
+        }
+
+        #gustoraFullscreenBtn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        #notesBtn {
+            width: 48px;
+            height: 48px;
+            bottom: 16px;
+            left: 16px;
+        }
+
+        #notesPanel {
+            width: 90%;
+            left: 16px;
+            bottom: 80px;
+        }
+    }
+
+    /* Audio Container Styling - Chapter 1.1 Match */
+    .audio-container {
+        background: url('https://login.skillizee.io/s/articles/6909826eb2daa47d422b50af/images/Subtitle%20(4).gif') center center no-repeat;
+        background-size: contain;
+        border-radius: 16px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        margin: 1.5rem auto;
+        width: 95%;
+        max-width: 900px;
+        aspect-ratio: 1920/1080;
+        /* Maintains the GIF ratio */
+        padding: 1rem;
+        display: flex;
+        align-items: flex-end;
+        /* Keeps the player at the bottom of the GIF */
+    }
+
+    .audio-container audio {
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid #2D2B7E;
+        /* Budget Boss signature purple border */
+    }
+
+    /* Mobile Fix for Audio */
+    @media (max-width: 768px) {
+        .audio-container {
+            aspect-ratio: 16/9;
+            /* Slightly wider for mobile screens */
+        }
+    }
+
+    
+    /* Heading Responsiveness */
+    @media (min-width: 1024px) {
+        .header-bg h2, .header-bg h1 {
+            font-size: 3.8rem !important;
+            line-height: 1.2 !important;
+            letter-spacing: -0.02em !important;
+            font-weight: 800 !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: 2.8rem !important;
+            line-height: 1.3 !important;
+            margin-bottom: 1.5rem !important;
+            font-weight: 700 !important;
+        }
+        .text-lg {
+            font-size: 1.25rem !important;
+            line-height: 1.6 !important;
+        }
+    }
+    @media (min-width: 769px) and (max-width: 1023px) {
+        .header-bg h2, .header-bg h1 {
+            font-size: 3rem !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: 2.4rem !important;
+        }
+    }
+    </style>
+<!-- Wave Background -->
+<div class="bg-wave">
+    <div class="wave">&nbsp;</div>
+
+    <div class="wave">&nbsp;</div>
+
+    <div class="wave">&nbsp;</div>
+</div>
+<!-- Coins Container -->
+
+<div class="fixed inset-0 pointer-events-none z-0" id="coins-container">
+    <!-- Paste all your coin divs here from the provided code (there are 15 in your message). Keeping structure for now. --><!-- You can copy-paste all 15 coin-animation-container blocks here -->
+</div>
+<!-- Progress Bar -->
+
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar" style="height: 22.3714%;">&nbsp;</div>
+</div>
+<!-- Gustora Fullscreen Button - Exact -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="2.6" viewbox="0 0 24 24">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+    </svg></div>
+<!-- Header -->
+
+<header class="header-bg fade-in visible">
+    <h2><strong>Chapter 1.2 &ndash; Types of Money</strong></h2>
+</header>
+<!-- Notes Button -->
+
+<p><button id="notesBtn">📝</button></p>
+
+<div id="notesPanel">
+    <div class="notes-header"><span>My Notes</span><button id="closeNotes">✕</button></div>
+    <textarea id="notesArea" placeholder="Write notes here..."></textarea>
+
+    <div class="notes-actions"><button id="downloadNotes">Download</button><button id="clearNotes">Clear</button></div>
+</div>
+<!-- Audio -->
+
+<div class="audio-container">
+    <audio controls="" controlslist="nodownload" oncontextmenu="return false;">
+        <source src="https://pa2-cmd.github.io/audio-chapters-budget-boss/m1c2.mp3" type="audio/mp3" /> Your browser
+        does not support the audio element.
+    </audio>
+</div>
+
+<main class="max-w-6xl mx-auto px-4 space-y-8 relative z-10"><!-- Introduction --><!-- 1. Commodity Money -->
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg visible">
+        <div class="money-type-card">
+            <div class="flex"><!-- Content Side -->
+                <div class="content-side flex-1">
+                    <h4 class="text-2xl font-semibold mb-3">Commodity Money</h4>
+
+                    <p class="money-definition">Money that has value itself, as a commodity, and can be used for
+                        exchange.</p>
+
+                    <p><strong>Examples:</strong> Gold coins, silver coins, shells.</p>
+
+                    <div class="money-characteristic mt-4"><strong>Characteristic:</strong> Intrinsic value equal to
+                        commodity value.</div>
+                </div>
+                <!-- Image Side -->
+
+                <div class="image-side flex-1">
+                    <div class="image-container"><img alt="Commodity Money"
+                            src="/s/articles/68fcaa1dd5147c600de34400/images/commodityMoney.png" /></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 2. Representative Money -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <div class="money-type-card">
+            <div class="flex"><!-- Content Side -->
+                <div class="content-side flex-1">
+                    <h4 class="text-2xl font-semibold mb-3">Representative Money</h4>
+
+                    <p class="money-definition">Certificates or tokens that can be exchanged for a fixed amount of a
+                        commodity.</p>
+
+                    <p><strong>Examples:</strong> Gold or silver certificates.</p>
+
+                    <div class="money-characteristic mt-4"><strong>Characteristic:</strong> Represents real commodity
+                        (e.g., gold).</div>
+                </div>
+                <!-- Image Side -->
+
+                <div class="image-side flex-1">
+                    <div class="image-container"><img alt="Representative Money"
+                            src="/s/articles/68fcaa1dd5147c600de34400/images/representativeMoney.png" /></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 3. Fiat Money -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <div class="money-type-card">
+            <div class="flex"><!-- Content Side -->
+                <div class="content-side flex-1">
+                    <h4 class="text-2xl font-semibold mb-3">Fiat Money</h4>
+
+                    <p class="money-definition">Money by government decree that has no intrinsic value but is legal
+                        tender.</p>
+
+                    <p><strong>Examples:</strong> Indian Rupee, US Dollar, Euro.</p>
+
+                    <div class="money-characteristic mt-4"><strong>Characteristic:</strong> Backed by government trust,
+                        not gold.</div>
+                </div>
+                <!-- Image Side -->
+
+                <div class="image-side flex-1">
+                    <div class="image-container"><img alt="Fiat Money"
+                            src="/s/articles/68fcaa1dd5147c600de34400/images/fiat money.png" /></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 4. Credit / Commercial Bank Money -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <div class="money-type-card">
+            <div class="flex"><!-- Content Side -->
+                <div class="content-side flex-1">
+                    <h4 class="text-2xl font-semibold mb-3">Credit or Commercial Bank Money</h4>
+
+                    <p class="money-definition">Money created by banks in the form of deposits.</p>
+
+                    <p><strong>Examples:</strong> Bank account balances, checks, UPI.</p>
+
+                    <div class="money-characteristic mt-4"><strong>Characteristic:</strong> Exists digitally, not in
+                        cash.</div>
+                </div>
+                <!-- Image Side -->
+
+                <div class="image-side flex-1">
+                    <div class="image-container"><img alt="Credit/Commercial Bank Money"
+                            src="/s/articles/68fcaa1dd5147c600de34400/images/bankMoney.png" /></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 5. Fiduciary Money -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <div class="money-type-card">
+            <div class="flex"><!-- Content Side -->
+                <div class="content-side flex-1">
+                    <h4 class="text-2xl font-semibold mb-3">Fiduciary Money</h4>
+
+                    <p class="money-definition">Money based on trust in its issuer, not legal tender.</p>
+
+                    <p><strong>Examples:</strong> Bank drafts, promissory notes.</p>
+
+                    <div class="money-characteristic mt-4"><strong>Characteristic:</strong> Relies on issuer&#39;s
+                        promise.</div>
+                </div>
+                <!-- Image Side -->
+
+                <div class="image-side flex-1">
+                    <div class="image-container"><img alt="Fiduciary Money"
+                            src="/s/articles/68fcaa1dd5147c600de34400/images/fiduciaryMoney.png" /></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 6. Digital Money -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <div class="money-type-card">
+            <div class="flex"><!-- Content Side -->
+                <div class="content-side flex-1">
+                    <h4 class="text-2xl font-semibold mb-3">Digital Money</h4>
+
+                    <p class="money-definition">Money that exists only in electronic or digital form.</p>
+
+                    <p><strong>Examples:</strong> Bitcoin, Ethereum, CBDCs.</p>
+
+                    <div class="money-characteristic mt-4"><strong>Characteristic:</strong> Blockchain-based, no
+                        physical form.</div>
+                </div>
+                <!-- Image Side -->
+
+                <div class="image-side flex-1">
+                    <div class="image-container"><img alt="Digital Money"
+                            src="/s/articles/68fcaa1dd5147c600de34400/images/digitalMoney.png" /></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Footer -->
+
+<footer class="new-footer">
+    <h4>Budget Boss</h4>
+
+    <p>SkilliZee.io</p>
+</footer>
+<script>
+    // Gustora Fullscreen
+    document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen?.() ||
+                document.documentElement.webkitRequestFullscreen?.() ||
+                document.documentElement.msRequestFullscreen?.();
+        } else {
+            document.exitFullscreen?.() ||
+                document.webkitExitFullscreen?.() ||
+                document.msExitFullscreen?.();
+        }
+    });
+
+    // Notes Panel
+    document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("notesBtn");
+        const panel = document.getElementById("notesPanel");
+        const close = document.getElementById("closeNotes");
+        const area = document.getElementById("notesArea");
+        const clearBtn = document.getElementById("clearNotes");
+        const downloadBtn = document.getElementById("downloadNotes");
+
+        area.value = localStorage.getItem("user_notes_cache") || "";
+
+        btn.onclick = () => panel.style.display = (panel.style.display === "flex") ? "none" : "flex";
+        if (close) close.onclick = () => panel.style.display = "none";
+        area.addEventListener("input", () => localStorage.setItem("user_notes_cache", area.value));
+
+        clearBtn.onclick = () => {
+            if (confirm("Clear all notes?")) {
+                area.value = "";
+                localStorage.removeItem("user_notes_cache");
+            }
+        };
+        downloadBtn.onclick = () => {
+            const blob = new Blob([area.value], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = "my-notes.txt"; a.click();
+            URL.revokeObjectURL(url);
+        };
+    });
+
+    // Progress Bar
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        document.getElementById("progress-bar").style.height = `${scrollPercent}%`;
+    });
+
+    // Fade-in Observer
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Activity Feedback Function
+    function checkAnswer(questionNumber, correctAnswer) {
+        const select = document.getElementById(`answer${questionNumber}`);
+        const feedback = document.getElementById(`feedback${questionNumber}`);
+
+        if (!select || !feedback) return;
+
+        const userAnswer = select.value;
+
+        if (!userAnswer) {
+            feedback.textContent = "Please select an answer before submitting.";
+            feedback.className = "feedback mt-4 p-4 rounded-lg bg-red-100 text-red-700 border-l-4 border-red-600";
+            feedback.style.display = "block";
+            return;
+        }
+
+        if (userAnswer === correctAnswer) {
+            feedback.innerHTML = `✅ Correct! <strong>${correctAnswer}</strong> is the right answer.`;
+            feedback.className = "feedback mt-4 p-4 rounded-lg bg-green-100 text-green-800 border-l-4 border-green-600";
+            // Optional confetti
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+            }
+        } else {
+            feedback.innerHTML = `❌ Incorrect. The correct answer is <strong>${correctAnswer}</strong>.`;
+            feedback.className = "feedback mt-4 p-4 rounded-lg bg-red-100 text-red-700 border-l-4 border-red-600";
+        }
+
+        feedback.style.display = "block";
+    }
+</script>

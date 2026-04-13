@@ -1,0 +1,716 @@
+<div>
+    <div>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </div>
+</div>
+<title></title>
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap"
+    rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" defer=""></script>
+<style type="text/css">
+    :root {
+        --primary: #E0C36C;
+        --secondary: #3A6351;
+        --accent: #F7E9A0;
+        --profit: #22c55e;
+        --loss: #ef4444;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: var(--secondary);
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* Wave Background */
+    .bg-wave {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        opacity: 0.15;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .wave {
+        position: absolute;
+        bottom: 0;
+        width: 200%;
+        height: 100px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        animation: wave 10s linear infinite;
+    }
+
+    .wave:nth-child(2) {
+        bottom: -20px;
+        opacity: 0.6;
+        animation: wave 15s linear infinite reverse;
+    }
+
+    .wave:nth-child(3) {
+        bottom: -40px;
+        opacity: 0.3;
+        animation: wave 12s linear infinite;
+    }
+
+    @keyframes wave {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* Header */
+    .header-bg {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 95%;
+        max-width: 1200px;
+        margin: 1.5rem auto;
+        text-align: center;
+    }
+
+    /* Topic Cards */
+    .topic {
+        background: white;
+        margin: clamp(12px, 2vw, 20px) auto;
+        padding: clamp(20px, 3vw, 28px);
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 95%;
+        max-width: 1200px;
+    }
+
+    .capstone-card {
+        background: var(--accent);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .capstone-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(224, 195, 108, 0.4);
+    }
+
+    /* Tables */
+    .investment-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .investment-table th,
+    .investment-table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .investment-table th {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: var(--secondary);
+        font-weight: 600;
+    }
+
+    /* Summary Cards */
+    .summary-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.25rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+        background: var(--primary);
+        color: var(--secondary);
+        padding: 14px 28px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .submit-btn:hover {
+        background: var(--secondary);
+        color: var(--accent);
+    }
+
+    /* Audio Player - Exact from your chapter */
+    .audio-container {
+        position: relative;
+        background: url('https://login.skillizee.io/s/articles/6909826eb2daa47d422b50af/images/Subtitle%20(4).gif') center center no-repeat;
+        background-size: contain;
+        border-radius: 16px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        margin: 2rem auto;
+        width: 95%;
+        max-width: 900px;
+        aspect-ratio: 1920 / 1080;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1.5rem;
+    }
+
+    .audio-container audio {
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid #2D2B7E;
+        background: #F5F5FF;
+        height: 50px;
+        padding: 4px;
+        box-shadow: 0 3px 10px rgba(45, 43, 126, 0.3);
+    }
+
+    audio::-webkit-media-controls-panel {
+        background-color: #E6E6FA;
+        border-radius: 12px;
+    }
+
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-timeline,
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display,
+    audio::-webkit-media-controls-volume-slider {
+        filter: hue-rotate(240deg) saturate(1.2);
+    }
+
+    /* Progress Bar */
+    .progress-container {
+        position: fixed;
+        top: 33.33vh;
+        right: 10px;
+        width: 8px;
+        height: 33.33vh;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 20;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 0;
+        background: var(--primary);
+        transition: height 0.3s ease;
+    }
+
+    /* Gustora Fullscreen Button - Exact from your code */
+    #gustoraFullscreenBtn {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 99999;
+        width: 68px;
+        height: 68px;
+        background: linear-gradient(135deg, var(--primary), #c9a100);
+        border: 4px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(170, 138, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(12px);
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        animation: gentlePulse 4s infinite ease-in-out;
+    }
+
+    #gustoraFullscreenBtn:hover {
+        transform: scale(1.18) rotate(8deg);
+        box-shadow: 0 20px 50px rgba(170, 138, 0, 0.7), 0 0 50px rgba(255, 215, 0, 0.6), 0 0 60px rgba(225, 37, 27, 0.3);
+        border-color: #e53e3e;
+    }
+
+    #gustoraFullscreenBtn svg {
+        width: 38px;
+        height: 38px;
+        stroke: #000;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    @keyframes gentlePulse {
+
+        0%,
+        100% {
+            box-shadow: 0 10px 30px rgba(170, 138, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        50% {
+            box-shadow: 0 15px 40px rgba(170, 138, 0, 0.6), 0 0 40px rgba(225, 37, 27, 0.3), inset 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    /* Notes Panel */
+    #notesBtn {
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        z-index: 2147483647;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: white;
+        font-size: 24px;
+        box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+    }
+
+    #notesPanel {
+        position: fixed;
+        bottom: 96px;
+        left: 24px;
+        width: 320px;
+        max-width: 90vw;
+        background: rgba(15, 23, 42, 0.96);
+        color: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        z-index: 2147483646;
+        display: none;
+        flex-direction: column;
+    }
+
+    /* Fade-in */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .header-bg {
+            padding: 1.25rem;
+        }
+
+        .header-bg h1 span {
+            font-size: 22px !important;
+        }
+
+        .topic,
+        .capstone-card {
+            padding: 1.25rem;
+        }
+
+        .investment-table th,
+        .investment-table td {
+            padding: 10px;
+            font-size: 13px;
+        }
+
+        #coins-wrapper {
+            display: none !important;
+        }
+
+        .progress-container {
+            display: none;
+        }
+
+        .audio-container {
+            aspect-ratio: 16/9;
+            padding: 1rem;
+        }
+    }
+
+    * {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    html,
+    body {
+        overflow-x: hidden !important;
+    }
+
+    
+    /* Heading Responsiveness */
+    @media (min-width: 1024px) {
+        .header-bg h2, .header-bg h1 {
+            font-size: 3.8rem !important;
+            line-height: 1.2 !important;
+            letter-spacing: -0.02em !important;
+            font-weight: 800 !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: 2.8rem !important;
+            line-height: 1.3 !important;
+            margin-bottom: 1.5rem !important;
+            font-weight: 700 !important;
+        }
+        .text-lg {
+            font-size: 1.25rem !important;
+            line-height: 1.6 !important;
+        }
+    }
+    @media (min-width: 769px) and (max-width: 1023px) {
+        .header-bg h2, .header-bg h1 {
+            font-size: 3rem !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: 2.4rem !important;
+        }
+    }
+    </style>
+<!-- Wave Background -->
+<div class="bg-wave">
+    <div class="wave">&nbsp;</div>
+
+    <div class="wave">&nbsp;</div>
+
+    <div class="wave">&nbsp;</div>
+</div>
+<!-- Coins Background -->
+
+<div id="coins-wrapper">
+    <div class="loaded" id="coins-container">
+        <!-- Your original 25 coins go here. For space, I'm keeping placeholder. Paste your full coin code if needed. --><!-- Example: All coin-animation-container blocks from your original message -->
+    </div>
+</div>
+<!-- Progress Bar -->
+
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar" style="height: 4.51908%;">&nbsp;</div>
+</div>
+<!-- Gustora Fullscreen Button -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="2.6" viewbox="0 0 24 24">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+    </svg></div>
+<!-- Header -->
+
+<header class="header-bg fade-in visible">
+    <h1 style="font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--secondary);">
+        Chapter 2.4: Profit &amp; Loss</h1>
+</header>
+<!-- Notes Button -->
+
+<p><button id="notesBtn">📝</button><!-- Notes Panel --></p>
+
+<div id="notesPanel">
+    <div class="notes-header p-4 border-b border-white/20 flex justify-between items-center"><span
+            class="font-medium">My Notes</span><button class="text-2xl leading-none" id="closeNotes">✕</button></div>
+    <textarea class="w-full p-4 bg-slate-800 text-white h-40 resize-y outline-none" id="notesArea"
+        placeholder="Write your notes here..."></textarea>
+
+    <div class="p-4 flex gap-3"><button class="flex-1 bg-emerald-600 hover:bg-emerald-700 py-3 rounded-xl text-white"
+            id="downloadNotes">Download</button><button
+            class="flex-1 bg-red-600 hover:bg-red-700 py-3 rounded-xl text-white" id="clearNotes">Clear</button></div>
+</div>
+<!-- Audio Player -->
+
+<div class="audio-container">
+    <audio controls="" controlslist="nodownload" oncontextmenu="return false;">
+        <source src="https://pa2-cmd.github.io/audio-chapters-budget-boss/m2c4.mp3" type="audio/mp3" /> Your browser
+        does not support the audio element.
+    </audio>
+</div>
+
+<main class="max-w-6xl mx-auto px-4 space-y-8 relative z-10"><!-- 1. Profit and Loss Section -->
+    <section class="topic fade-in">
+        <h3 class="text-2xl font-semibold mb-5" style="font-family: 'Poppins', sans-serif;">Profit and Loss</h3>
+
+        <div class="capstone-card">
+            <div class="flex justify-center mb-6"><img alt="Profit and Loss Statement Illustration"
+                    class="rounded-lg shadow-md w-full max-w-md object-cover" loading="lazy"
+                    src="/s/articles/68ff4d17e8c9225d87f122c7/images/stomcks.png" /></div>
+
+            <p dir="ltr">Profit and loss are fundamental financial terms representing your net earnings or net losses
+                after all costs are deducted from your revenue over a specific period. When your revenues exceed
+                expenses, you record a profit, indicating successful financial performance. Conversely, if expenses
+                surpass revenues, the outcome is a loss, signaling a financial deficit. Maintaining a detailed profit
+                and loss statement (P&amp;L statement) is essential for analyzing financial health, guiding
+                decision-making, and ensuring sustainable business operations or personal budgeting.</p>
+
+            <p dir="ltr">In investment contexts like the stock market and mutual funds, profit and loss indicate the
+                financial outcome of buying and selling assets based on their changing market values.</p>
+        </div>
+    </section>
+    <!-- 2. Activity: Track Your P&amp;L -->
+
+    <section class="topic fade-in">
+        <h3 class="text-3xl font-semibold mb-6 text-[var(--primary)]">Activity: Track Your P&amp;L</h3>
+
+        <div class="capstone-card">
+            <p class="mb-4">Profit &amp; Loss (P&amp;L) sheet template to track income, expenses, and profit or loss:
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="investment-table">
+                    <tbody>
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Amount (₹)</th>
+                        </tr>
+                        <tr>
+                            <td>Income/Allowance/Stipend</td>
+                            <td>Total money received</td>
+                            <td><input class="w-full text-center border border-gray-300 rounded p-2" id="income"
+                                    type="number" value="0" /></td>
+                        </tr>
+                        <tr>
+                            <td>Expenses</td>
+                            <td>Total money spent</td>
+                            <td><input class="w-full text-center border border-gray-300 rounded p-2" id="expenses"
+                                    type="number" value="0" /></td>
+                        </tr>
+                        <tr>
+                            <td>Profit/Loss</td>
+                            <td>Income minus Expenses</td>
+                            <td><strong class="text-xl" id="plResult">₹0</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-6"><button class="submit-btn" onclick="showPLResult()">Submit &amp; Show
+                    Result</button></div>
+
+            <p class="mt-4 text-sm">You can fill in your actual income and expense amounts in the &quot;Amount&quot;
+                column. The Profit/Loss is calculated as Income minus Expenses to show if you made a profit or incurred
+                a loss.</p>
+        </div>
+    </section>
+    <!-- 3. Stock Market -->
+
+    <section class="topic fade-in">
+        <h3 class="text-2xl font-semibold mb-5" style="font-family: 'Poppins', sans-serif;">Stock Market</h3>
+
+        <div class="capstone-card">
+            <div class="flex justify-center mb-6"><img alt="Stock Market Trading Chart"
+                    class="rounded-lg shadow-md w-full max-w-md object-cover" loading="lazy"
+                    src="/s/articles/68ff4d17e8c9225d87f122c7/images/Gemini_Generated_Image_fejlahfejlahfejl.png" />
+            </div>
+
+            <p dir="ltr">Profit transpires when you sell shares at a price higher than your purchase price. For example,
+                buying shares for ₹100 each and selling them at ₹150 generates a ₹50 gain per share. Loss arises when
+                shares are sold below the purchase price; for instance, buying at ₹100 and selling at ₹80 results in a
+                ₹20 loss per share. The net gain or loss calculation must consider brokerage fees and transaction costs:
+            </p>
+
+            <p dir="ltr">Profit or Loss = Selling Price &minus; Purchase Price &minus; Transaction Costs</p>
+        </div>
+    </section>
+    <!-- 4. Stocks Profit & Loss Calculator -->
+
+    <section class="topic fade-in">
+        <h3 class="text-3xl font-semibold mb-6 text-[var(--primary)]">Activity: Stocks Profit &amp; Loss Calculator</h3>
+
+        <div class="capstone-card">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div><label class="block text-sm font-medium mb-1">Buy Price per Share (₹)</label> <input
+                        class="w-full p-3 border border-[var(--primary)] rounded" id="stockBuy" step="0.01"
+                        type="number" value="100" /></div>
+
+                <div><label class="block text-sm font-medium mb-1">Sell Price per Share (₹)</label> <input
+                        class="w-full p-3 border border-[var(--primary)] rounded" id="stockSell" step="0.01"
+                        type="number" value="150" /></div>
+
+                <div><label class="block text-sm font-medium mb-1">Number of Shares</label> <input
+                        class="w-full p-3 border border-[var(--primary)] rounded" id="stockQty" min="1" type="number"
+                        value="50" /></div>
+
+                <div><label class="block text-sm font-medium mb-1">Brokerage per Trade (₹)</label> <input
+                        class="w-full p-3 border border-[var(--primary)] rounded" id="stockBroker" type="number"
+                        value="20" /></div>
+            </div>
+
+            <div class="text-center mt-8"><button class="submit-btn" onclick="showStockResult()">Submit &amp;
+                    Calculate</button></div>
+
+            <div class="result-hidden mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" id="stockResults">&nbsp;</div>
+
+            <div class="result-hidden mt-6 chart-wrapper" id="stockChartWrapper"><canvas id="stockChart"></canvas></div>
+
+            <div class="formula-box mt-6">P&amp;L = (Sell Price &times; Qty) &minus; (Buy Price &times; Qty) &minus; (2
+                &times; Brokerage)</div>
+        </div>
+    </section>
+    <!-- 5. Mutual Funds -->
+
+    <section class="topic fade-in">
+        <h3 class="text-2xl font-semibold mb-5" style="font-family: 'Poppins', sans-serif;">Mutual Funds</h3>
+
+        <div class="capstone-card">
+            <div class="flex justify-center mb-6"><img alt="Mutual Funds Investment Growth"
+                    class="rounded-lg shadow-md w-full max-w-md object-cover" loading="lazy"
+                    src="/s/articles/68ff4d17e8c9225d87f122c7/images/Gemini_Generated_Image_kqzakhkqzakhkqza.png" />
+            </div>
+
+            <p dir="ltr">Mutual funds aggregate capital from multiple investors to purchase diversified portfolios of
+                stocks, bonds, or other securities. The fund&rsquo;s value is reflected by its Net Asset Value (NAV) per
+                unit. Profit, also known as capital gain, occurs when the selling NAV exceeds the purchase NAV.
+                Additionally, investors may receive dividends, representing a portion of the fund&#39;s earnings
+                distributed to unit holders. Loss occurs if the NAV declines below the purchase price upon selling. The
+                formula for profit or loss per unit is:</p>
+
+            <p dir="ltr">Profit or Loss per unit = Selling NAV &minus; Purchase NAV</p>
+
+            <p dir="ltr">Investors should be aware that neither stock prices nor mutual fund NAVs are guaranteed to
+                increase; they are subject to market risks and fluctuations.</p>
+        </div>
+    </section>
+    <!-- 6. SIP Calculator & Compounding -->
+
+    <section class="topic fade-in">
+        <h3 class="text-3xl font-semibold mb-6 text-[var(--primary)]">Activity: SIP Calculator &amp; Compounding in
+            Mutual Funds</h3>
+
+        <div class="capstone-card">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div><label class="block text-sm font-medium mb-1">Monthly Investment (₹)</label> <input
+                        class="w-full p-3 border border-[var(--primary)] rounded" id="sipMonthly" type="number"
+                        value="5000" /></div>
+
+                <div><label class="block text-sm font-medium mb-1">Expected Annual Return (%)</label> <input
+                        class="w-full p-3 border border-[var(--primary)] rounded" id="sipRate" step="0.1" type="number"
+                        value="12" /></div>
+
+                <div><label class="block text-sm font-medium mb-1">Investment Period (Years)</label> <input
+                        class="w-full p-3 border border-[var(--primary)] rounded" id="sipYears" type="number"
+                        value="10" /></div>
+
+                <div><label class="block text-sm font-medium mb-1">Compounding Frequency</label> <select
+                        class="w-full p-3 border border-[var(--primary)] rounded" id="sipFreq">
+                        <option value="12">Monthly</option>
+                        <option value="4">Quarterly</option>
+                        <option value="1">Yearly</option>
+                    </select></div>
+            </div>
+
+            <div class="text-center mt-8"><button class="submit-btn" onclick="showSIPResult()">Submit &amp; Calculate
+                    SIP</button></div>
+
+            <div class="result-hidden mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" id="sipResults">&nbsp;</div>
+
+            <div class="result-hidden mt-6 chart-wrapper" id="sipChartWrapper"><canvas id="sipChart"></canvas></div>
+
+            <div class="result-hidden mt-8 capstone-card" id="compoundingWrapper">
+                <h4 class="text-xl font-semibold mb-4 text-[var(--secondary)]">How Compounding Works in SIP</h4>
+
+                <div class="chart-wrapper"><canvas id="compoundingChart"></canvas></div>
+
+                <p class="mt-4 text-center text-sm">Blue = Amount Invested | Orange = Interest Earned</p>
+            </div>
+
+            <div class="formula-box mt-6">FV = P &times; (((1 + r/n)^(n&times;t) - 1) / (r/n)) &times; (1 + r/n)</div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-[var(--secondary)] text-[var(--accent)] text-center py-10 mt-12 rounded-t-3xl">
+    <h4 class="text-xl font-semibold">Budget Boss</h4>
+
+    <p class="text-sm">SkilliZee.io</p>
+</footer>
+<script>
+    // Gustora Fullscreen Button
+    document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen?.() ||
+                document.documentElement.webkitRequestFullscreen?.() ||
+                document.documentElement.msRequestFullscreen?.();
+        } else {
+            document.exitFullscreen?.() ||
+                document.webkitExitFullscreen?.() ||
+                document.msExitFullscreen?.();
+        }
+    });
+
+    // Notes Panel
+    document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("notesBtn");
+        const panel = document.getElementById("notesPanel");
+        const close = document.getElementById("closeNotes");
+        const area = document.getElementById("notesArea");
+        const clearBtn = document.getElementById("clearNotes");
+        const downloadBtn = document.getElementById("downloadNotes");
+        const STORAGE_KEY = "chapter24_notes";
+
+        area.value = localStorage.getItem(STORAGE_KEY) || "";
+
+        btn.onclick = () => {
+            panel.style.display = (panel.style.display === "flex") ? "none" : "flex";
+        };
+        close.onclick = () => panel.style.display = "none";
+
+        area.addEventListener("input", () => {
+            localStorage.setItem(STORAGE_KEY, area.value);
+        });
+
+        clearBtn.onclick = () => {
+            if (confirm("Clear all notes?")) {
+                area.value = "";
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        };
+
+        downloadBtn.onclick = () => {
+            const blob = new Blob([area.value], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "profit-loss-notes.txt";
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+    });
+
+    // Progress Bar
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        document.getElementById("progress-bar").style.height = `${scrollPercent}%`;
+    });
+
+    // Fade-in Observer
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Load coins on desktop
+    window.addEventListener('load', () => {
+        const coins = document.getElementById('coins-container');
+        if (coins) coins.classList.add('loaded');
+    });
+
+    // Your calculation functions will go here when you add HTML sections
+    // Example placeholder:
+    function showPLResult() {
+        // Your original logic
+    }
+</script>

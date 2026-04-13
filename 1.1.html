@@ -1,0 +1,1032 @@
+<div>
+    <div>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </div>
+</div>
+<title></title>
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap"
+    rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<style type="text/css">
+    :root {
+        --primary: #E0C36C;
+        --secondary: #3A6351;
+        --accent: #F7E9A0;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        color: var(--secondary);
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* Wave Background */
+    .bg-wave {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .wave {
+        position: absolute;
+        bottom: 0;
+        width: 200%;
+        height: 100px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        animation: wave 10s linear infinite;
+    }
+
+    .wave:nth-child(2) {
+        bottom: -20px;
+        opacity: 0.6;
+        animation: wave 15s linear infinite reverse;
+    }
+
+    .wave:nth-child(3) {
+        bottom: -40px;
+        opacity: 0.3;
+        animation: wave 12s linear infinite;
+    }
+
+    @keyframes wave {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* Coin Animations */
+    .coin-animation-container {
+        position: absolute;
+        width: 150px;
+        height: 225px;
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    .y-axis-container {
+        animation: bounce 2.6s infinite ease-in-out;
+    }
+
+    .coin-container {
+        position: relative;
+        top: 22.5px;
+        height: 225px;
+        width: 142.5px;
+        transform: scale(0.5) translateX(0) scaleY(0.7);
+    }
+
+    .coin {
+        position: absolute;
+        height: 225px;
+        left: 0;
+        width: 127.5px;
+        background: gold;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .side-coin {
+        position: absolute;
+        left: 63.75px;
+        height: 225px;
+        width: 26.25px;
+        background: #f5b642;
+    }
+
+    .side {
+        position: absolute;
+        background: #f5b642;
+        left: 16.5px;
+        width: 123.75px;
+        height: 228px;
+        top: -1.5px;
+    }
+
+    .shine {
+        width: 300px;
+        height: 15px;
+        background: rgba(255, 255, 255, 0.65);
+        transform: rotate(25deg);
+        animation: shine 5s infinite;
+    }
+
+    .flash {
+        z-index: 200;
+        position: absolute;
+        width: 11.25px;
+        height: 11.25px;
+        background: white;
+        top: 22.5px;
+        right: 15px;
+        animation: flash 7s infinite;
+    }
+
+    .dai {
+        position: absolute;
+        width: 75px;
+        height: 75px;
+        background: #faf20a;
+        border: 1px solid white;
+        transform: rotate(53deg) skew(26deg);
+        top: 70.5px;
+        left: 26.25px;
+        overflow: hidden;
+    }
+
+    .cutout,
+    .dai-shadow {
+        z-index: 20;
+        width: 150%;
+        height: 150%;
+        transform: rotate(45deg);
+        position: absolute;
+        top: 21.75px;
+    }
+
+    .cutout {
+        background: #ffee38;
+        left: 21.75px;
+    }
+
+    .dai-shadow {
+        background: rgba(0, 0, 0, 0.07);
+        right: 21.75px;
+    }
+
+    .inner-dai {
+        position: relative;
+        background: white;
+        height: 52.5px;
+        width: 52.5px;
+        top: 11.25px;
+        left: 11.25px;
+    }
+
+    .inner-inner-dai {
+        position: relative;
+        background: #ffee38;
+        width: 15px;
+        height: 15px;
+        top: 18.75px;
+        left: 18.75px;
+    }
+
+    .coin-shadow {
+        position: relative;
+        left: calc(50% - 45px);
+        top: -30px;
+        background: rgba(0, 0, 0, 0.2);
+        height: 22.5px;
+        width: 75px;
+        border-radius: 50%;
+        animation: scaling 2.6s infinite;
+    }
+
+    @keyframes bounce {
+        20% {
+            transform: translateY(-45px);
+        }
+
+        50% {
+            transform: translateY(-60px);
+        }
+    }
+
+    @keyframes scaling {
+        20% {
+            transform: scale(0.6);
+        }
+
+        50% {
+            transform: scale(0.5);
+        }
+    }
+
+    @keyframes flash {
+
+        0%,
+        8% {
+            transform: rotate(0deg) scale(0);
+        }
+
+        10% {
+            transform: rotate(150deg) scale(1.8);
+        }
+
+        15%,
+        100% {
+            transform: rotate(45deg) scale(0);
+        }
+    }
+
+    @keyframes shine {
+        20% {
+            transform: rotate(25deg) translateY(300px);
+        }
+
+        100% {
+            transform: rotate(25deg) translateY(300px);
+        }
+    }
+
+    /* Progress Bar */
+    .progress-container {
+        position: fixed;
+        top: 33.33vh;
+        right: 10px;
+        width: 8px;
+        height: 33.33vh;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 20;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 0;
+        background: var(--primary);
+        transition: height 0.3s ease;
+    }
+
+    /* Header */
+    .header-bg {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        color: var(--secondary);
+        text-align: center;
+        width: 95%;
+        max-width: 1800px;
+        margin: 2rem auto 1.5rem;
+    }
+
+    /* Fade-in */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Flip Cards */
+    .challenges-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(300px, 480px));
+        gap: clamp(1.2rem, 3.5vw, 2.5rem);
+        justify-content: center;
+        margin: clamp(1.5rem, 3vw, 2rem) auto;
+        max-width: 95%;
+    }
+
+    .flip-hover-card {
+        background: #f2f0eb;
+        border-radius: 18px;
+        padding: clamp(1.5rem, 3.5vw, 2.2rem);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+        width: clamp(300px, 34vw, 480px);
+        min-height: clamp(240px, 34vh, 300px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        transition: all .4s;
+    }
+
+    .flip-hover-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 22px 45px rgba(0, 0, 0, .25);
+    }
+
+    .flip-hover-card .front h3 {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+        font-weight: 700;
+        color: #3A6351;
+        margin: 0;
+    }
+
+    .flip-hover-card .back {
+        background: linear-gradient(135deg, #1a3c34, #2e6b5e);
+        color: #fff;
+        border-radius: 18px;
+        padding: 1.2rem;
+        margin-top: 12px;
+        width: 100%;
+    }
+
+    /* Evolution Timeline */
+    .evolution-timeline {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        position: relative;
+        gap: 1.5rem;
+        margin: 3rem 0;
+        padding: 0 1rem;
+    }
+
+    .evolution-timeline::before {
+        content: '';
+        position: absolute;
+        top: 30px; /* Center of the icon */
+        left: 10%;
+        right: 10%;
+        height: 4px;
+        background: linear-gradient(90deg, transparent, var(--secondary) 20%, var(--secondary) 80%, transparent);
+        z-index: 0;
+    }
+
+    .evolution-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        position: relative;
+        z-index: 1;
+        flex: 1;
+    }
+
+    .evolution-step {
+        background: var(--accent);
+        border: 4px solid white;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        animation: pulse 2s infinite;
+        transition: transform 0.3s ease;
+    }
+
+    .evolution-item:hover .evolution-step {
+        transform: scale(1.15) rotate(5deg);
+        background: var(--primary);
+    }
+
+    .evolution-label {
+        font-weight: 600;
+        color: var(--secondary);
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    /* UPDATED YouTube Video - Forced Centering and Strict Scaling */
+    .youtube-video {
+        position: relative;
+        width: 100%;
+        /* Ensure it takes full available width */
+        max-width: 800px;
+        /* Prevents it from getting too huge on tablets */
+        aspect-ratio: 16 / 9;
+        /* Modern CSS way to handle aspect ratio */
+        margin: 1.5rem auto;
+        /* Centers horizontally */
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background: #000;
+        /* Prevents flickering during load */
+    }
+
+    /* Fallback for older browsers that don't support aspect-ratio */
+    @supports not (aspect-ratio: 16 / 9) {
+        .youtube-video {
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+    }
+
+    .youtube-video iframe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* Forces absolute mathematical center */
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Chart Container */
+    .chart-container {
+        width: 100%;
+        height: 280px;
+        margin: 1.5rem 0;
+    }
+
+    /* Audio */
+    .audio-container {
+        background: url('https://login.skillizee.io/s/articles/6909826eb2daa47d422b50af/images/Subtitle%20(4).gif') center center no-repeat;
+        background-size: contain;
+        border-radius: 16px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+        margin: 1.5rem auto;
+        width: 95%;
+        max-width: 900px;
+        aspect-ratio: 1920/1080;
+        padding: 1rem;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .audio-container audio {
+        width: 100%;
+        border-radius: 12px;
+        border: 2px solid #2D2B7E;
+    }
+
+    /* Footer */
+    .new-footer {
+        background: var(--secondary);
+        color: var(--accent);
+        text-align: center;
+        padding: 2rem;
+        margin-top: 2rem;
+        border-radius: 20px 20px 0 0;
+        width: 95%;
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+
+    /* Gustora Fullscreen Button - EXACT SAME AS OVERVIEW */
+    #gustoraFullscreenBtn {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 99999;
+        width: 68px;
+        height: 68px;
+        background: linear-gradient(135deg, var(--primary), #c9a100);
+        border: 4px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(170, 138, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(12px);
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        animation: gentlePulse 4s infinite ease-in-out;
+    }
+
+    #gustoraFullscreenBtn:hover {
+        transform: scale(1.18) rotate(8deg);
+        box-shadow: 0 20px 50px rgba(170, 138, 0, 0.7), 0 0 50px rgba(255, 215, 0, 0.6), 0 0 60px rgba(225, 37, 27, 0.3);
+        border-color: #e53e3e;
+    }
+
+    #gustoraFullscreenBtn svg {
+        width: 38px;
+        height: 38px;
+        stroke: #000;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    @keyframes gentlePulse {
+
+        0%,
+        100% {
+            box-shadow: 0 10px 30px rgba(170, 138, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        50% {
+            box-shadow: 0 15px 40px rgba(170, 138, 0, 0.6), 0 0 40px rgba(225, 37, 27, 0.3), inset 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    #gustoraFullscreenBtn:active {
+        transform: scale(0.95);
+    }
+
+    /* Notes Panel - Exact */
+    #notesBtn,
+    #notesPanel {
+        position: fixed !important;
+        isolation: isolate;
+    }
+
+    #notesBtn {
+        bottom: 24px;
+        left: 24px;
+        z-index: 2147483647;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: none;
+        background: #fff;
+        font-size: 22px;
+        cursor: pointer;
+        box-shadow: 0 0 25px rgba(250, 204, 21, 0.9);
+    }
+
+    #notesPanel {
+        bottom: 96px;
+        left: 24px;
+        width: 320px;
+        max-width: 90vw;
+        background: rgba(15, 23, 42, 0.96);
+        color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        z-index: 2147483646;
+        display: none;
+        flex-direction: column;
+        backdrop-filter: blur(14px);
+    }
+
+    .notes-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    #notesArea {
+        background: transparent;
+        border: none;
+        color: white;
+        padding: 14px;
+        height: 150px;
+        resize: none;
+        outline: none;
+    }
+
+    .notes-actions {
+        display: flex;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .notes-actions button {
+        flex: 1;
+        border: none;
+        border-radius: 8px;
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    /* Mobile Fixes - Exact as Overview */
+    @media (max-width: 768px) {
+        .header-bg {
+            width: 95% !important;
+            padding: 1rem !important;
+        }
+
+        .header-bg h2 {
+            font-size: 22px !important;
+        }
+
+        .challenges-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem;
+        }
+
+        .flip-hover-card {
+            width: 100% !important;
+            min-height: auto;
+        }
+
+        .evolution-timeline {
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            gap: 0.5rem !important;
+            padding: 0 !important;
+            margin: 2rem 0 !important;
+        }
+
+        .evolution-timeline::before {
+            display: block !important;
+            top: 25px !important; /* Half of 50px icon */
+            left: 5% !important;
+            right: 5% !important;
+            height: 2px !important;
+            background: var(--secondary) !important;
+            width: 90% !important;
+        }
+
+        .evolution-item {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            flex: 1 !important;
+            width: auto !important;
+        }
+
+        .evolution-step {
+            width: 50px !important;
+            height: 50px !important;
+            font-size: 1.5rem !important;
+            border-width: 2px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .evolution-label {
+            font-size: 0.7rem !important;
+            text-align: center !important;
+            word-break: break-word !important;
+            width: 100% !important;
+        }
+
+        .chart-container {
+            height: 220px !important;
+        }
+
+        .audio-container {
+            aspect-ratio: 16/9;
+        }
+
+        .progress-container,
+        .coin-animation-container {
+            display: none !important;
+        }
+
+        .bg-wave {
+            opacity: 0.2;
+        }
+
+        .wave {
+            height: 60px;
+        }
+
+        #gustoraFullscreenBtn {
+            width: 50px;
+            height: 50px;
+            top: 12px;
+            right: 12px;
+        }
+
+        #gustoraFullscreenBtn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        #notesBtn {
+            width: 48px;
+            height: 48px;
+            bottom: 16px;
+            left: 16px;
+        }
+
+        #notesPanel {
+            width: 90%;
+            left: 16px;
+            bottom: 80px;
+        }
+    }
+
+    
+    /* Heading Responsiveness */
+    @media (min-width: 1024px) {
+        .header-bg h2, .header-bg h1 {
+            font-size: 3.8rem !important;
+            line-height: 1.2 !important;
+            letter-spacing: -0.02em !important;
+            font-weight: 800 !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: 2.8rem !important;
+            line-height: 1.3 !important;
+            margin-bottom: 1.5rem !important;
+            font-weight: 700 !important;
+        }
+        .text-lg {
+            font-size: 1.25rem !important;
+            line-height: 1.6 !important;
+        }
+    }
+    @media (min-width: 769px) and (max-width: 1023px) {
+        .header-bg h2, .header-bg h1 {
+            font-size: 3rem !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: 2.4rem !important;
+        }
+    }
+    </style>
+<!-- Wave Background -->
+<div class="bg-wave">
+    <div class="wave">&nbsp;</div>
+
+    <div class="wave">&nbsp;</div>
+
+    <div class="wave">&nbsp;</div>
+</div>
+<!-- Coins Container (Paste all 8 coins from Overview here) -->
+
+<div class="fixed inset-0 pointer-events-none z-0" id="coins-container">
+    <!-- Coin 1 to Coin 8 - Use exact code from your first Overview message --><!-- Example Coin 1 (repeat for others with different positions) -->
+    <div class="coin-animation-container" style="left: 56.3906%; top: 51.8201%; animation-delay: 1.18761s;">
+        <div class="y-axis-container">
+            <div class="coin-container">
+                <div class="flash">&nbsp;</div>
+
+                <div class="coin side">
+                    <div class="shine" style="transform:rotate(-30deg);">&nbsp;</div>
+                </div>
+
+                <div class="side-coin">&nbsp;</div>
+
+                <div class="coin">
+                    <div class="dai">
+                        <div class="inner-dai">
+                            <div class="inner-inner-dai">&nbsp;</div>
+                        </div>
+
+                        <div class="cutout">&nbsp;</div>
+
+                        <div class="dai-shadow">&nbsp;</div>
+                    </div>
+
+                    <div class="shine">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="coin-shadow">&nbsp;</div>
+    </div>
+    <!-- Add Coin 2 to Coin 8 here... -->
+</div>
+<!-- Progress Bar -->
+
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar" style="height: 0%;">&nbsp;</div>
+</div>
+<!-- Gustora Fullscreen Button - Exact Match -->
+
+<div id="gustoraFullscreenBtn"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="2.6" viewbox="0 0 24 24">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+    </svg></div>
+<!-- Header -->
+
+<header class="header-bg fade-in visible">
+    <h2><strong>Chapter 1.1 &ndash; Money, Savings, and Investment</strong></h2>
+</header>
+<!-- Notes -->
+
+<p><button id="notesBtn">📝</button></p>
+
+<div id="notesPanel">
+    <div class="notes-header"><span>My Notes</span><button id="closeNotes">✕</button></div>
+    <textarea id="notesArea" placeholder="Write notes here..."></textarea>
+
+    <div class="notes-actions"><button id="downloadNotes">Download</button><button id="clearNotes">Clear</button></div>
+</div>
+<!-- Audio -->
+
+<div class="audio-container">
+    <audio controls="" controlslist="nodownload" oncontextmenu="return false;">
+        <source src="https://pa2-cmd.github.io/audio-chapters-budget-boss/m1c1.mp3" type="audio/mp3" />
+    </audio>
+</div>
+
+<main class="max-w-6xl mx-auto px-4 space-y-8 relative z-10"><!-- History and Evolution -->
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-3xl font-semibold mb-4">History and Evolution</h3>
+
+        <p class="text-lg mb-6">Money started as barter, evolved through commodity money (like gold and silver), then to
+            representative money, and finally to fiat money, which is government-issued currency with no intrinsic value
+            but accepted as legal tender.</p>
+
+        <div class="youtube-video"><iframe
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen="" src="https://www.youtube.com/embed/gWp5zT3qQnM?rel=0"
+                title="History and Evolution of Money"></iframe></div>
+
+        <div class="evolution-timeline">
+            <div class="evolution-item">
+                <div class="evolution-step">💱</div>
+                <div class="evolution-label">Barter</div>
+            </div>
+
+            <div class="evolution-item">
+                <div class="evolution-step">🪙</div>
+                <div class="evolution-label">Coins</div>
+            </div>
+
+            <div class="evolution-item">
+                <div class="evolution-step">💵</div>
+                <div class="evolution-label">Paper</div>
+            </div>
+
+            <div class="evolution-item">
+                <div class="evolution-step">🌐</div>
+                <div class="evolution-label">Digital</div>
+            </div>
+        </div>
+    </section>
+    <!-- What is Money? -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-3xl font-semibold mb-4">What is Money?</h3>
+
+        <p class="text-lg mb-6">Money is something everyone accepts in exchange for goods and services&hellip;</p>
+
+        <div class="youtube-video"><iframe
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen="" src="https://www.youtube.com/embed/fmQzRy1LH10?rel=0"
+                title="What is Money?"></iframe></div>
+    </section>
+    <!-- Concept of Money Functions -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-3xl font-semibold mb-4">Concept of Money Functions</h3>
+
+        <div class="challenges-grid">
+            <div class="flip-hover-card">
+                <div class="front">
+                    <h3>Medium of Exchange</h3>
+                </div>
+
+                <div class="back">
+                    <p>Facilitates trade without the need for barter, making transactions efficient and universal.</p>
+                </div>
+            </div>
+
+            <div class="flip-hover-card">
+                <div class="front">
+                    <h3>Store of Value</h3>
+                </div>
+
+                <div class="back">
+                    <p>Allows wealth to be saved and retrieved later, assuming it retains purchasing power.</p>
+                </div>
+            </div>
+
+            <div class="flip-hover-card">
+                <div class="front">
+                    <h3>Unit of Account</h3>
+                </div>
+
+                <div class="back">
+                    <p>Provides a standard measure to price goods and services, enabling comparison and accounting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Value of Money -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-3xl font-semibold mb-4">Value of Money</h3>
+
+        <p class="text-lg mb-6"><strong>Inflation</strong> is the rate at which prices increase.</p>
+
+        <p class="text-lg mb-6"><strong>Deflation</strong> is the decline in prices.</p>
+
+        <p class="text-lg mb-6">Explanation of purchasing power, inflation, and deflation.</p>
+
+        <div class="chart-container"><canvas id="inflationChart"></canvas></div>
+
+        <div class="mt-6">
+            <h4 class="text-2xl font-semibold mb-3">Key Points</h4>
+
+            <div class="key-point">Inflation decreases value.</div>
+
+            <div class="key-point">Deflation increases value.</div>
+
+            <div class="key-point">Purchasing power matters.</div>
+        </div>
+    </section>
+    <!-- Time Value of Money -->
+
+    <section class="topic fade-in bg-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-3xl font-semibold mb-4">TIME VALUE OF MONEY and Why it is Important</h3>
+
+        <div class="flex justify-center mb-6"><span class="text-6xl">⌛</span></div>
+
+        <p class="text-lg mb-6">Money today is worth more than the same amount in the future due to potential earnings.
+        </p>
+
+        <div class="youtube-video"><iframe
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen="" src="https://www.youtube.com/embed/Zxz0OwTVYdQ?rel=0"
+                title="Time Value of Money"></iframe></div>
+    </section>
+</main>
+<!-- Footer -->
+
+<footer class="new-footer">
+    <h4>Budget Boss</h4>
+
+    <p>SkilliZee.io</p>
+</footer>
+<script>
+    // Gustora Fullscreen Button
+    document.getElementById('gustoraFullscreenBtn').addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen?.() ||
+                document.documentElement.webkitRequestFullscreen?.() ||
+                document.documentElement.msRequestFullscreen?.();
+        } else {
+            document.exitFullscreen?.() ||
+                document.webkitExitFullscreen?.() ||
+                document.msExitFullscreen?.();
+        }
+    });
+
+    // Notes Panel
+    document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("notesBtn");
+        const panel = document.getElementById("notesPanel");
+        const close = document.getElementById("closeNotes");
+        const area = document.getElementById("notesArea");
+        const clearBtn = document.getElementById("clearNotes");
+        const downloadBtn = document.getElementById("downloadNotes");
+
+        area.value = localStorage.getItem("user_notes_cache") || "";
+
+        btn.onclick = () => panel.style.display = (panel.style.display === "flex") ? "none" : "flex";
+        close.onclick = () => panel.style.display = "none";
+        area.addEventListener("input", () => localStorage.setItem("user_notes_cache", area.value));
+
+        clearBtn.onclick = () => {
+            if (confirm("Clear all notes?")) {
+                area.value = "";
+                localStorage.removeItem("user_notes_cache");
+            }
+        };
+        downloadBtn.onclick = () => {
+            const blob = new Blob([area.value], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "my-notes.txt";
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+    });
+
+    // Progress Bar
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        document.getElementById("progress-bar").style.height = `${scrollPercent}%`;
+    });
+
+    // Fade-in Observer
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Fixed Inflation Chart
+    document.addEventListener('DOMContentLoaded', () => {
+        const ctx = document.getElementById('inflationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4'],
+                datasets: [
+                    { label: 'Inflation', data: [2, 4, 6, 8], borderColor: '#3A6351', tension: 0.3, fill: false },
+                    { label: 'Money Value', data: [100, 96, 92, 88], borderColor: '#E0C36C', tension: 0.3, fill: false }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: false } },
+                plugins: { legend: { position: 'top' } }
+            }
+        });
+    });
+</script>
