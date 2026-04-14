@@ -18,6 +18,11 @@
         --primary: #E0C36C;
         --secondary: #3A6351;
         --accent: #F7E9A0;
+        --font-display: clamp(2rem, 5vw, 3rem);
+        --font-chapter-title: clamp(1.625rem, 3vw, 3rem);
+        --font-card-title: clamp(1.25rem, 2.2vw, 1.625rem);
+        --font-subheading: clamp(1.0625rem, 1.8vw, 1.25rem);
+        --font-body: clamp(1rem, 1.5vw, 1.125rem);
     }
 
     .dark {
@@ -293,6 +298,16 @@
         margin: 2rem auto 1.5rem;
     }
 
+    .header-bg h1,
+    .header-bg h2 {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        font-size: var(--font-display);
+        line-height: 1.2;
+        letter-spacing: 0;
+        font-weight: 800;
+    }
+
     /* Fade-in */
     .fade-in {
         opacity: 0;
@@ -330,7 +345,8 @@
     .title-card h2 {
         margin: 0;
         font-family: 'Poppins', sans-serif;
-        font-size: clamp(1.5em, 2.2vw, 2em);
+        font-size: var(--font-card-title);
+        line-height: 1.3;
         color: var(--secondary);
         font-weight: 600;
     }
@@ -458,14 +474,16 @@
 
     .timeline-title {
         font-weight: bold;
-        font-size: clamp(1.3em, 1.8vw, 1.6em);
+        font-size: var(--font-chapter-title);
+        line-height: 1.25;
         color: var(--secondary);
         margin-bottom: 8px;
         font-family: 'Poppins', sans-serif;
     }
 
     .timeline-subtitle {
-        font-size: clamp(14px, 1.2vw, 16px);
+        font-size: var(--font-body);
+        line-height: 1.6;
         color: #4a5568;
         font-style: italic;
     }
@@ -492,7 +510,8 @@
         padding: 0.75rem;
         text-align: center;
         font-weight: 500;
-        font-size: 0.9rem;
+        font-size: var(--font-card-title);
+        line-height: 1.35;
         min-height: 60px;
         display: flex;
         align-items: center;
@@ -535,7 +554,30 @@
         padding: 1rem;
         border-radius: 8px;
         margin: 0.5rem 0;
-        font-size: 1rem;
+        font-size: var(--font-body);
+        line-height: 1.6;
+    }
+
+    .topic-content p,
+    .topic-content li,
+    .text-lg,
+    .learn-section,
+    .activity-example,
+    .reflective-q,
+    .new-footer p {
+        font-size: var(--font-body);
+        line-height: 1.6;
+    }
+
+    .learn-section > strong,
+    .activity-example strong,
+    .reflective-q strong,
+    .quiz-badge,
+    .new-footer h4 {
+        font-family: 'Poppins', sans-serif;
+        font-size: var(--font-subheading);
+        line-height: 1.4;
+        font-weight: 600;
     }
 
     /* Footer */
@@ -692,8 +734,10 @@
             padding: 1rem !important;
         }
 
-        .header-bg h1 {
-            font-size: 22px !important;
+        .header-bg h1,
+        .header-bg h2 {
+            font-size: 1.875rem !important;
+            line-height: 1.25 !important;
         }
 
         .title-card {
@@ -702,7 +746,8 @@
         }
 
         .title-card h2 {
-            font-size: 18px;
+            font-size: 1.25rem !important;
+            line-height: 1.3 !important;
         }
 
         .topic {
@@ -725,6 +770,34 @@
             padding: 1rem;
         }
 
+        .timeline-title {
+            font-size: 1.5rem !important;
+            line-height: 1.3 !important;
+            margin-bottom: 0.75rem !important;
+        }
+
+        .timeline-subtitle,
+        .key-point,
+        .topic-content p,
+        .topic-content li,
+        .text-lg,
+        .learn-section,
+        .activity-example,
+        .reflective-q,
+        .new-footer p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        .learn-section > strong,
+        .activity-example strong,
+        .reflective-q strong,
+        .quiz-badge,
+        .new-footer h4 {
+            font-size: 1.125rem !important;
+            line-height: 1.45 !important;
+        }
+
         .timeline-dot {
             left: 10px !important;
         }
@@ -744,7 +817,8 @@
         }
 
         .chapter-card {
-            font-size: 13px;
+            font-size: 1.125rem !important;
+            line-height: 1.35 !important;
             padding: 10px;
         }
 
@@ -769,28 +843,62 @@
     /* Heading Responsiveness */
     @media (min-width: 1024px) {
         .header-bg h2, .header-bg h1 {
-            font-size: 3.8rem !important;
+            font-size: var(--font-display) !important;
             line-height: 1.2 !important;
-            letter-spacing: -0.02em !important;
+            letter-spacing: 0 !important;
             font-weight: 800 !important;
         }
-        .topic h3, .text-3xl, .timeline-title {
-            font-size: 2.8rem !important;
+        .title-card h2 {
+            font-size: var(--font-card-title) !important;
             line-height: 1.3 !important;
-            margin-bottom: 1.5rem !important;
+        }
+        .topic h3, .text-3xl, .timeline-title {
+            font-size: var(--font-chapter-title) !important;
+            line-height: 1.25 !important;
+            margin-bottom: 1rem !important;
             font-weight: 700 !important;
         }
         .text-lg {
-            font-size: 1.25rem !important;
+            font-size: var(--font-body) !important;
             line-height: 1.6 !important;
         }
     }
     @media (min-width: 769px) and (max-width: 1023px) {
         .header-bg h2, .header-bg h1 {
-            font-size: 3rem !important;
+            font-size: clamp(2rem, 4vw, 2.75rem) !important;
+            line-height: 1.2 !important;
+        }
+        .title-card h2 {
+            font-size: clamp(1.25rem, 2vw, 1.5rem) !important;
+            line-height: 1.3 !important;
         }
         .topic h3, .text-3xl, .timeline-title {
-            font-size: 2.4rem !important;
+            font-size: clamp(1.75rem, 2.8vw, 2.25rem) !important;
+            line-height: 1.25 !important;
+        }
+        .timeline-subtitle,
+        .key-point,
+        .topic-content p,
+        .topic-content li,
+        .text-lg,
+        .learn-section,
+        .activity-example,
+        .reflective-q,
+        .new-footer p {
+            font-size: clamp(1rem, 1.4vw, 1.125rem) !important;
+            line-height: 1.6 !important;
+        }
+        .learn-section > strong,
+        .activity-example strong,
+        .reflective-q strong,
+        .quiz-badge,
+        .new-footer h4 {
+            font-size: clamp(1.0625rem, 1.6vw, 1.25rem) !important;
+            line-height: 1.4 !important;
+        }
+        .chapter-card {
+            font-size: clamp(1.125rem, 1.8vw, 1.375rem) !important;
+            line-height: 1.35 !important;
         }
     }
     </style>
